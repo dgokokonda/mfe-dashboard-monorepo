@@ -1,0 +1,32 @@
+{
+  "name": "@mfe-dashboard/shared-ui",
+  "version": "1.0.0",
+  "description": "Shared UI components for MFE dashboard",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./Button": {
+      "import": "./src/Button.vue",
+      "types": "./src/Button.vue"
+    },
+    "./Card": {
+      "import": "./src/Card.vue",
+      "types": "./src/Card.vue"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3"
+  }
+}

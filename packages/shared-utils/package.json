@@ -1,0 +1,29 @@
+{
+  "name": "@mfe-dashboard/shared-utils",
+  "version": "1.0.0",
+  "description": "Shared utilities for MFE dashboard",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./useDebounce": {
+      "import": "./src/composables/useDebounce.ts",
+      "types": "./src/composables/useDebounce.ts"
+    },
+    "./formatPrice": {
+      "import": "./src/formatting/formatPrice.ts",
+      "types": "./src/formatting/formatPrice.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  }
+}

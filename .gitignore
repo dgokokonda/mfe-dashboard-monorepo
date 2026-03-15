@@ -1,0 +1,58 @@
+.DS_Store
+.thumbs.db
+node_modules
+
+# Quasar core related directories
+.turbo
+.quasar
+dist/
+dist-ssr/
+/quasar.config.*.temporary.compiled*
+
+# Cordova related directories and files
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+
+# Capacitor related directories and files
+/src-capacitor/www
+/src-capacitor/node_modules
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode
+
+# local .env files
+.env.local*
+.env
+# db.json
+
+# Temp директории
+.temp/
+.cache/
+
+# Артефакты сборки приложений
+apps/*/dist/
+apps/*/dist-ssr/
+
+# Артефакты сборки пакетов
+packages/*/dist/
+
+# Конкретно ваши папки
+apps/host/dist/
+apps/remote-products/dist/
+apps/*/assets/  # если assets генерируются в корне
+
+# Локальные файлы разработки
+apps/*/.env
+apps/*/.env.local
