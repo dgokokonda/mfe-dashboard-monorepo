@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { Button } from "@mfe-dashboard/shared-ui";
 import Card from "@mfe-dashboard/shared-ui/Card";
-import { formatPrice } from "@mfe-dashboard/shared-utils";
+import {
+  eventBus,
+  dispatchAppEvent,
+  formatPrice,
+} from "@mfe-dashboard/shared-utils";
 
 interface Product {
   id: string;
@@ -22,7 +26,7 @@ const emit = defineEmits<{
 
 const products = ref<Product[]>([]);
 
-onMounted(async () => {
+onMounted(() => {
   // Здесь будет запрос к API
   products.value = [
     { id: "1", name: "Product 1", price: 100, description: "Description 1" },
@@ -30,10 +34,43 @@ onMounted(async () => {
     { id: "3", name: "Product 3", price: 300, description: "Description 3" },
   ];
   // setTimeout(() => emit("edit-limit", 3), 3000);
+
+  // слушаем событие от хоста
+  const unsubscribe = eventBus.on("notification:show", (detail) => {
+    console.log(detail.message + " " + detail.type);
+  });
+
+  // уведомляем хост через шину событий о монтировании
+  eventBus.markRemoteReady();
+  onUnmounted(() => unsubscribe());
 });
 
 const handleSelect = (id: string) => {
   emit("product-select", id);
+};
+
+const addProduct = () => {
+  const productId = String(products.value.length + 1);
+  products.value.push({
+    id: productId,
+    name: `Product ${productId}`,
+    price: 99.99,
+    description:
+      "This is a detailed product description. It contains all the information about the product, its features, specifications, and other important details that customers need to know before making a purchase.",
+  });
+  // Отправляем событие в хост
+  dispatchAppEvent("notification:show", {
+    message: `Product ${productId} added`,
+    type: "success",
+  });
+};
+const popProduct = () => {
+  products.value.pop();
+  // Отправляем событие в хост
+  dispatchAppEvent("notification:show", {
+    message: "Product removed",
+    type: "success",
+  });
 };
 </script>
 
@@ -47,6 +84,8 @@ const handleSelect = (id: string) => {
         <Button @click="handleSelect(product.id)"> View Details </Button>
       </Card>
     </div>
+    <Button @click="addProduct">Add Product</Button>
+    <Button @click="popProduct">Pop product</Button>
   </div>
 </template>
 

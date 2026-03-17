@@ -47,9 +47,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, onMounted, onUnmounted, ref } from "vue";
+import { addAppEventListener } from "@mfe-dashboard/shared-utils";
+import { eventBus } from "@mfe-dashboard/shared-utils";
 
-const limit = ref<number>(2);
+const limit = ref<number>(10);
 const SalesGraph = defineAsyncComponent(
   () => import("remote_sales_graph/SalesGraph"),
 );
@@ -64,6 +66,46 @@ const CurrencyRate = defineAsyncComponent(
 const editLimit = (val: number) => {
   limit.value = val;
 };
+
+const checkNotificationAccess = () => {
+  // Проверка поддержки браузером
+  if (!("Notification" in window)) {
+    console.log("Этот браузер не поддерживает уведомления");
+    return;
+  }
+
+  Notification.requestPermission();
+};
+
+const notify = (title: string, options: NotificationOptions = {}) => {
+  if (Notification.permission === "granted") {
+    new Notification(title, options);
+  }
+};
+
+onMounted(() => {
+  checkNotificationAccess();
+  // хост слушает событие от ремоута
+  const unsubscribeNotification = addAppEventListener(
+    "notification:show",
+    ({ message, type }: { message: string; type: "success" | "error" }) => {
+      notify("Уведомление", {
+        body: message,
+      });
+      console.log("notify", message, type);
+    },
+  );
+
+  // хост может диспатчить в ремоут, а тот слушать (через самописный класс eventBus)
+  eventBus.dispatch("notification:show", {
+    message: "Products mounted",
+    type: "success",
+  });
+
+  onUnmounted(() => {
+    unsubscribeNotification();
+  });
+});
 </script>
 
 <style scoped>

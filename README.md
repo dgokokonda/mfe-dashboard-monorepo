@@ -76,6 +76,8 @@
 
 **pnpm install** - установка зависимостей в каждой директории
 
+**Remove-Item -Recurse -Force apps/host/node_modules/.vite -ErrorAction SilentlyContinue** - для очистки кэша в хосте, затем pnpm i в корне.
+
 Прежде чем запустить сервера, нужно сбилдить ремоут: pnpm build:remote,
 затем запустить pnpm dev:all. При каждом изменении в коде ремоута, нужно билдить его и перезагружать страницу.
 

@@ -90,7 +90,7 @@ const addToCart = () => {
   if (!product.value) return;
 
   // Здесь будет логика добавления в корзину
-  console.log("Added to cart:", product.value.id);
+  // console.log("Added to cart:", product.value.id);
 
   // Можно эмитить событие для родительского компонента
   emit("add-to-cart", product.value.id);
@@ -113,7 +113,7 @@ const emit = defineEmits<{
 
 // Загрузка при монтировании
 onMounted(() => {
-  console.log("ProductDetail components:", Button, Card);
+  // console.log("ProductDetail components:", Button, Card);
   fetchProduct();
 });
 </script>
