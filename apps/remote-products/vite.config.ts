@@ -23,6 +23,7 @@ export default defineConfig({
         pinia: "^2.1.0",
         "@mfe-dashboard/shared-ui": "workspace:*",
         "@mfe-dashboard/shared-utils": "workspace:*",
+        "@mfe-dashboard/shared-stores": "workspace:*",
       },
     }),
   ],

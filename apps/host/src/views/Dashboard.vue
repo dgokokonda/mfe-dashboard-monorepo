@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-wrapper">
     <h2>Дашборд</h2>
+    <p>{{ `Counter: ${count}` }}</p>
     <div class="dashboard dashboard-grid">
       <div class="widget">
         <Suspense>
@@ -47,9 +48,15 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { defineAsyncComponent, onMounted, onUnmounted, ref } from "vue";
 import { addAppEventListener } from "@mfe-dashboard/shared-utils";
 import { eventBus } from "@mfe-dashboard/shared-utils";
+import { useCounterStore } from "@mfe-dashboard/shared-stores";
+
+const counterStore = useCounterStore();
+
+const { count } = storeToRefs(counterStore);
 
 const limit = ref<number>(10);
 const SalesGraph = defineAsyncComponent(

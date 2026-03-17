@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from "vue";
+import { useCounterStore } from "@mfe-dashboard/shared-stores";
 
 const ProductList = defineAsyncComponent(
   () => import("remote_products/ProductList"),
@@ -9,6 +10,7 @@ const ProductDetail = defineAsyncComponent(
 );
 
 const selectedProductId = ref<string | null>(null);
+const counterStore = useCounterStore();
 
 const handleProductSelect = (id: string) => {
   selectedProductId.value = id;
@@ -18,6 +20,10 @@ const handleProductSelect = (id: string) => {
 <template>
   <div class="products-view">
     <h2>Products</h2>
+      <div class="counter">
+        Counter: <strong>{{ counterStore.count }}</strong>
+      </div>
+    </div>
     <div class="sidebar">
       <Suspense>
         <template #default>
@@ -44,6 +50,21 @@ const handleProductSelect = (id: string) => {
 </template>
 
 <style scoped>
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.counter {
+  color: #2c3e50;
+  background: #f5f5f5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
 .products-view {
   display: grid;
   grid-template-columns: 1fr 1fr;

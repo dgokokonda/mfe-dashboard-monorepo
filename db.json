@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Mock Product 1",
+      "price": 99.99,
+      "description": "First mock product from json-server",
+      "category": "mock",
+      "image": "https://via.placeholder.com/300x200?text=Mock+1"
+    },
+    {
+      "id": 2,
+      "title": "Mock Product 2",
+      "price": 149.99,
+      "description": "Second mock product from json-server",
+      "category": "mock",
+      "image": "https://via.placeholder.com/300x200?text=Mock+2"
+    },
+    {
+      "id": 3,
+      "title": "Mock Product 3",
+      "price": 59.99,
+      "description": "Third mock product from json-server",
+      "category": "mock",
+      "image": "https://via.placeholder.com/300x200?text=Mock+3"
+    }
+  ]
+}
+

@@ -1,0 +1,31 @@
+{
+  "name": "@mfe-dashboard/shared-stores",
+  "version": "1.0.0",
+  "description": "Shared stores for MFE dashboard",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./counter": {
+      "import": "./src/counter.ts",
+      "types": "./src/counter.ts"
+    },
+    "./pinia": {
+      "import": "./src/pinia.ts",
+      "types": "./src/pinia.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "pinia": "^2.1.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0",
+    "pinia": "^2.1.0"
+  }
+}

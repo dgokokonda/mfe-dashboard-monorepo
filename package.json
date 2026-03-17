@@ -7,6 +7,7 @@
     "dev:all": "concurrently \"pnpm dev:host\" \"pnpm dev:remote\"",
     "dev:host": "turbo run dev --filter=@mfe-dashboard/host --parallel",
     "dev:remote": "turbo run preview --filter=@mfe-dashboard/remote-products --filter=@mfe-dashboard/remote-sales-graph --filter=@mfe-dashboard/remote-weather --filter=@mfe-dashboard/remote-currency-rate --parallel",
+    "dev:api": "json-server --watch db.json --port 3001",
     "build:remote": "turbo run build --filter=@mfe-dashboard/remote-products --filter=@mfe-dashboard/remote-sales-graph --filter=@mfe-dashboard/remote-weather --filter=@mfe-dashboard/remote-currency-rate",
     "build": "turbo run build",
     "preview": "turbo run preview",
@@ -28,7 +29,8 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vue-tsc": "^2.2.0",
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "json-server": "^1.0.0-beta.1"
   },
   "packageManager": "pnpm@8.15.0",
   "engines": {

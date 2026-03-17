@@ -7,6 +7,7 @@ import {
   dispatchAppEvent,
   formatPrice,
 } from "@mfe-dashboard/shared-utils";
+import { useCounterStore } from "@mfe-dashboard/shared-stores";
 
 interface Product {
   id: string;
@@ -25,6 +26,9 @@ const emit = defineEmits<{
 }>();
 
 const products = ref<Product[]>([]);
+const counterStore = useCounterStore();
+const increment = () => counterStore.increment();
+const decrement = () => counterStore.decrement();
 
 onMounted(() => {
   // Здесь будет запрос к API
@@ -63,14 +67,17 @@ const addProduct = () => {
     message: `Product ${productId} added`,
     type: "success",
   });
+  increment();
 };
 const popProduct = () => {
+  if (products.value.length === 0) return;
   products.value.pop();
   // Отправляем событие в хост
   dispatchAppEvent("notification:show", {
     message: "Product removed",
     type: "success",
   });
+  decrement();
 };
 </script>
 
@@ -84,8 +91,8 @@ const popProduct = () => {
         <Button @click="handleSelect(product.id)"> View Details </Button>
       </Card>
     </div>
-    <Button @click="addProduct">Add Product</Button>
-    <Button @click="popProduct">Pop product</Button>
+    <Button @click="addProduct">Добавить продукт</Button>
+    <Button @click="popProduct">Удалить продукт</Button>
   </div>
 </template>
 
