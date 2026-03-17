@@ -1,6 +1,119 @@
-<template>
-  <Card>Sales Graph</Card>
-</template>
 <script setup lang="ts">
-import Card from "@mfe-dashboard/shared-ui/Card";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { Card } from "@mfe-dashboard/shared-ui";
+import { Line } from "vue-chartjs";
+import {
+  Chart,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+
+Chart.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Tooltip,
+  Legend,
+  Filler,
+);
+
+interface Point {
+  time: string;
+  value: number;
+}
+
+const points = ref<Point[]>([]);
+const chartData = ref({
+  labels: [] as string[],
+  datasets: [
+    {
+      label: "Sales",
+      data: [] as number[],
+      borderColor: "#42b883",
+      backgroundColor: "rgba(66, 184, 131, 0.2)",
+      tension: 0.3,
+      fill: true,
+    },
+  ],
+});
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: true,
+    },
+    tooltip: {
+      enabled: true,
+    },
+  },
+  scales: {
+    x: {
+      display: true,
+    },
+    y: {
+      display: true,
+      beginAtZero: false,
+    },
+  },
+} as const;
+
+let timer: number | undefined;
+
+const syncChart = () => {
+  chartData.value.labels = points.value.map((p: Point) => p.time);
+  chartData.value.datasets[0].data = points.value.map((p: Point) => p.value);
+};
+
+const pushPoint = () => {
+  const now = new Date();
+  const label = now.toLocaleTimeString("ru-RU", {
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  const last = points.value[points.value.length - 1]?.value ?? 100;
+  const next = Math.max(20, last + (Math.random() - 0.5) * 20);
+  if (points.value.length > 20) {
+    points.value.shift();
+  }
+  points.value.push({ time: label, value: Math.round(next) });
+  syncChart();
+};
+
+onMounted(() => {
+  for (let i = 0; i < 10; i += 1) {
+    const base = new Date(Date.now() - (10 - i) * 1000);
+    points.value.push({
+      time: base.toLocaleTimeString("ru-RU", {
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+      value: 80 + Math.round(Math.random() * 40),
+    });
+  }
+  syncChart();
+  timer = window.setInterval(pushPoint, 3000);
+});
+
+onBeforeUnmount(() => {
+  if (timer) {
+    window.clearInterval(timer);
+  }
+});
 </script>
+
+<template>
+  <Card>
+    <h3 style="margin-bottom: 8px">Sales (mock)</h3>
+    <div style="height: 260px">
+      <Line :data="chartData" :options="chartOptions" />
+    </div>
+  </Card>
+</template>

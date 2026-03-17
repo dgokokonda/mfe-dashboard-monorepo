@@ -58,7 +58,7 @@ const counterStore = useCounterStore();
 
 const { count } = storeToRefs(counterStore);
 
-const limit = ref<number>(10);
+const limit = ref<number>(2);
 const SalesGraph = defineAsyncComponent(
   () => import("remote_sales_graph/SalesGraph"),
 );
