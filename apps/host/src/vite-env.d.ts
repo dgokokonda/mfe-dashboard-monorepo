@@ -19,6 +19,24 @@ declare module "remote_products/*" {
   export default component;
 }
 
+declare module "remote_sales_graph/SalesGraph" {
+  import type { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote_weather/Forecast" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote_currency_rate/CurrencyRate" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
 // Декларации для Vue файлов
 declare module "*.vue" {
   import type { DefineComponent } from "vue";

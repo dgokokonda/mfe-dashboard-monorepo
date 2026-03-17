@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import federation from "@originjs/vite-plugin-federation";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
@@ -18,11 +17,21 @@ export default defineConfig(({ mode }) => {
               ? "http://localhost:5001/assets/remoteEntry.js"
               : env.PRODUCTS_REMOTE_URL ||
                 "http://localhost:5001/assets/remoteEntry.js",
-          // remote_cart:
-          //   mode === "development"
-          //     ? "http://localhost:5002/assets/remoteEntry.js"
-          //     : env.CART_REMOTE_URL ||
-          //       "http://localhost:5002/assets/remoteEntry.js",
+          remote_sales_graph:
+            mode === "development"
+              ? "http://localhost:5002/assets/remoteEntry.js"
+              : env.GRAPH_REMOTE_URL ||
+                "http://localhost:5002/assets/remoteEntry.js",
+          remote_weather:
+            mode === "development"
+              ? "http://localhost:5003/assets/remoteEntry.js"
+              : env.WEATHER_REMOTE_URL ||
+                "http://localhost:5003/assets/remoteEntry.js",
+          remote_currency_rate:
+            mode === "development"
+              ? "http://localhost:5004/assets/remoteEntry.js"
+              : env.CURRENCY_RATE_REMOTE_URL ||
+                "http://localhost:5004/assets/remoteEntry.js",
         },
         shared: {
           vue: "^3.4.0",

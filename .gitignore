@@ -51,6 +51,9 @@ packages/*/dist/
 # Конкретно ваши папки
 apps/host/dist/
 apps/remote-products/dist/
+apps/remote-sales-graph/dist/
+apps/remote-forecast/dist/
+apps/remote-currency-rate/dist/
 apps/*/assets/  # если assets генерируются в корне
 
 # Локальные файлы разработки

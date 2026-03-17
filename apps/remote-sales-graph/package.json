@@ -1,0 +1,19 @@
+{
+  "name": "@mfe-dashboard/remote-sales-graph",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5002 --strictPort",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview --port 5002",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext vue,ts --report-unused-disable-directives"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.0",
+    "pinia": "^2.1.0",
+    "@mfe-dashboard/shared-ui": "workspace:*",
+    "@mfe-dashboard/shared-utils": "workspace:*"
+  }
+}

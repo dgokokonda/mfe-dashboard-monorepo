@@ -26,8 +26,20 @@ declare module "remote_products/store" {
   export const useProductsStore: StoreDefinition;
 }
 
-// declare module "remote_cart/Cart" {
-//   import { DefineComponent } from "vue";
-//   const component: DefineComponent<{}, {}, any>;
-//   export default component;
-// }
+declare module "remote_sales_graph/SalesGraph" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote_weather/Forecast" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote_currency_rate/CurrencyRate" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
