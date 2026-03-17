@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from "vue";
 import { useCounterStore } from "@mfe-dashboard/shared-stores";
+import { api } from "@mfe-dashboard/shared-api";
 
 const ProductList = defineAsyncComponent(
   () => import("remote_products/ProductList"),
@@ -11,6 +12,19 @@ const ProductDetail = defineAsyncComponent(
 
 const selectedProductId = ref<string | null>(null);
 const counterStore = useCounterStore();
+const apiProductsCount = ref<number | null>(null);
+const apiError = ref<string | null>(null);
+
+const loadProductsViaSharedApi = async () => {
+  apiError.value = null;
+  try {
+    const products = await api.getProducts();
+    apiProductsCount.value = products.length;
+  } catch (e) {
+    apiError.value = e instanceof Error ? e.message : "Failed to load products";
+    apiProductsCount.value = null;
+  }
+};
 
 const handleProductSelect = (id: string) => {
   selectedProductId.value = id;
@@ -19,9 +33,19 @@ const handleProductSelect = (id: string) => {
 
 <template>
   <div class="products-view">
-    <h2>Products</h2>
+    <div class="header">
+      <h2>Products</h2>
       <div class="counter">
         Counter: <strong>{{ counterStore.count }}</strong>
+      </div>
+      <div class="api">
+        <button class="api-btn" type="button" @click="loadProductsViaSharedApi">
+          Load via shared-api
+        </button>
+        <span v-if="apiProductsCount !== null" class="api-result">
+          {{ apiProductsCount }} items
+        </span>
+        <span v-else-if="apiError" class="api-error">{{ apiError }}</span>
       </div>
     </div>
     <div class="sidebar">
@@ -63,6 +87,29 @@ const handleProductSelect = (id: string) => {
   background: #f5f5f5;
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
+}
+
+.api {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.api-btn {
+  background: #42b883;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+}
+
+.api-result {
+  color: #2c3e50;
+}
+
+.api-error {
+  color: #ff4d4f;
 }
 
 .products-view {

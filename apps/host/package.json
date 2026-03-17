@@ -15,6 +15,7 @@
     "pinia": "^2.1.0",
     "@mfe-dashboard/shared-ui": "file:../../packages/shared-ui",
     "@mfe-dashboard/shared-utils": "file:../../packages/shared-utils",
-    "@mfe-dashboard/shared-stores": "workspace:*"
+    "@mfe-dashboard/shared-stores": "workspace:*",
+    "@mfe-dashboard/shared-api": "workspace:*"
   }
 }

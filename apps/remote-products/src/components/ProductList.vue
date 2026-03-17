@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import { Button } from "@mfe-dashboard/shared-ui";
-import Card from "@mfe-dashboard/shared-ui/Card";
+import { Button, Card } from "@mfe-dashboard/shared-ui";
 import {
   eventBus,
   dispatchAppEvent,
   formatPrice,
 } from "@mfe-dashboard/shared-utils";
 import { useCounterStore } from "@mfe-dashboard/shared-stores";
+import { api, type Product as ApiProduct } from "@mfe-dashboard/shared-api";
 
 interface Product {
   id: string;
@@ -31,12 +31,40 @@ const increment = () => counterStore.increment();
 const decrement = () => counterStore.decrement();
 
 onMounted(() => {
-  // Здесь будет запрос к API
-  products.value = [
-    { id: "1", name: "Product 1", price: 100, description: "Description 1" },
-    { id: "2", name: "Product 2", price: 200, description: "Description 2" },
-    { id: "3", name: "Product 3", price: 300, description: "Description 3" },
-  ];
+  // Пример shared API: один и тот же клиент дергается из host и remote
+  api
+    .getProducts()
+    .then((data: ApiProduct[]) => {
+      products.value = data.map((p) => ({
+        id: String(p.id),
+        name: p.title,
+        price: p.price,
+        description: p.description,
+      }));
+    })
+    .catch(() => {
+      // fallback, чтобы UI не был пустым если сеть недоступна
+      products.value = [
+        {
+          id: "1",
+          name: "Product 1",
+          price: 100,
+          description: "Description 1",
+        },
+        {
+          id: "2",
+          name: "Product 2",
+          price: 200,
+          description: "Description 2",
+        },
+        {
+          id: "3",
+          name: "Product 3",
+          price: 300,
+          description: "Description 3",
+        },
+      ];
+    });
   // setTimeout(() => emit("edit-limit", 3), 3000);
 
   // слушаем событие от хоста

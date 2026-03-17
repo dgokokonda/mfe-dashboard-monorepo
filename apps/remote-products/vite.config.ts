@@ -24,6 +24,7 @@ export default defineConfig({
         "@mfe-dashboard/shared-ui": "workspace:*",
         "@mfe-dashboard/shared-utils": "workspace:*",
         "@mfe-dashboard/shared-stores": "workspace:*",
+        "@mfe-dashboard/shared-api": "workspace:*",
       },
     }),
   ],

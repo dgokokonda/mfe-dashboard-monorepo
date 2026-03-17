@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { Button } from "@mfe-dashboard/shared-ui";
-import Card from "@mfe-dashboard/shared-ui/Card";
+import { Button, Card } from "@mfe-dashboard/shared-ui";
 import { formatPrice } from "@mfe-dashboard/shared-utils";
 
 // Типы
@@ -25,9 +23,11 @@ const props = defineProps<{
   id?: string;
 }>();
 
-// Роутер (для изолированной навигации)
-const route = useRoute();
-const router = useRouter();
+// Эмиты
+const emit = defineEmits<{
+  (e: "add-to-cart", productId: string): void;
+  (e: "close"): void;
+}>();
 
 // Состояние
 const product = ref<Product | null>(null);
@@ -36,7 +36,7 @@ const error = ref<string | null>(null);
 const selectedImage = ref(0);
 
 // Определяем ID из пропсов или URL
-const productId = computed(() => props.id || (route.params.id as string));
+const productId = computed(() => props.id);
 
 // Загрузка данных
 const fetchProduct = async () => {
@@ -98,18 +98,8 @@ const addToCart = () => {
 
 // Назад к списку
 const goBack = () => {
-  if (router) {
-    router.back();
-  } else {
-    emit("close");
-  }
+  emit("close");
 };
-
-// Эмиты
-const emit = defineEmits<{
-  (e: "add-to-cart", productId: string): void;
-  (e: "close"): void;
-}>();
 
 // Загрузка при монтировании
 onMounted(() => {
