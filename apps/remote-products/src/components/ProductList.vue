@@ -17,6 +17,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: "product-select", id: string): void;
+  (e: "edit-limit", limit: number): void;
 }>();
 
 const products = ref<Product[]>([]);
@@ -26,7 +27,9 @@ onMounted(async () => {
   products.value = [
     { id: "1", name: "Product 1", price: 100, description: "Description 1" },
     { id: "2", name: "Product 2", price: 200, description: "Description 2" },
+    { id: "3", name: "Product 3", price: 300, description: "Description 3" },
   ];
+  // setTimeout(() => emit("edit-limit", 3), 3000);
 });
 
 const handleSelect = (id: string) => {
@@ -36,7 +39,6 @@ const handleSelect = (id: string) => {
 
 <template>
   <div class="product-list">
-    <h2>Products!</h2>
     <div class="grid">
       <Card v-for="product in products.slice(0, limit)" :key="product.id">
         <h3>{{ product.name }}</h3>

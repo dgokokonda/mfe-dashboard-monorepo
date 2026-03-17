@@ -17,6 +17,7 @@ const handleProductSelect = (id: string) => {
 
 <template>
   <div class="products-view">
+    <h2>Products</h2>
     <div class="sidebar">
       <Suspense>
         <template #default>

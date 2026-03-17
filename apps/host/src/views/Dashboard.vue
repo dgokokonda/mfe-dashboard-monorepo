@@ -15,7 +15,7 @@
       <div class="widget">
         <Suspense>
           <template #default>
-            <ProductsList :limit="5" />
+            <ProductsList :limit="limit" @edit-limit="editLimit" />
           </template>
           <template #fallback>
             <div>Loading products...</div>
@@ -47,8 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 
+const limit = ref<number>(2);
 const SalesGraph = defineAsyncComponent(
   () => import("remote_sales_graph/SalesGraph"),
 );
@@ -59,6 +60,10 @@ const Forecast = defineAsyncComponent(() => import("remote_weather/Forecast"));
 const CurrencyRate = defineAsyncComponent(
   () => import("remote_currency_rate/CurrencyRate"),
 );
+
+const editLimit = (val: number) => {
+  limit.value = val;
+};
 </script>
 
 <style scoped>
