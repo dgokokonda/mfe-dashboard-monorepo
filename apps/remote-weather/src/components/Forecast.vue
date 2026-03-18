@@ -13,20 +13,50 @@ interface DayForecast {
 const days = ref<DayForecast[]>([]);
 
 onMounted(() => {
-  // простые моковые данные прогноза на 5 дней
+  // моковые данные прогноза на 5 дней
   days.value = [
-    { day: "Сегодня", icon: "☀️", tempMin: 18, tempMax: 25, description: "Солнечно" },
-    { day: "Завтра", icon: "🌤️", tempMin: 17, tempMax: 23, description: "Переменная облачность" },
-    { day: "Ср", icon: "🌧️", tempMin: 14, tempMax: 20, description: "Небольшой дождь" },
-    { day: "Чт", icon: "⛅", tempMin: 16, tempMax: 22, description: "Облачно с прояснениями" },
-    { day: "Пт", icon: "🌦️", tempMin: 15, tempMax: 21, description: "Кратковременные дожди" },
+    {
+      day: "Сегодня",
+      icon: "☀️",
+      tempMin: 18,
+      tempMax: 25,
+      description: "Солнечно",
+    },
+    {
+      day: "Завтра",
+      icon: "🌤️",
+      tempMin: 17,
+      tempMax: 23,
+      description: "Переменная облачность",
+    },
+    {
+      day: "Ср",
+      icon: "🌧️",
+      tempMin: 14,
+      tempMax: 20,
+      description: "Небольшой дождь",
+    },
+    {
+      day: "Чт",
+      icon: "⛅",
+      tempMin: 16,
+      tempMax: 22,
+      description: "Облачно с прояснениями",
+    },
+    {
+      day: "Пт",
+      icon: "🌦️",
+      tempMin: 15,
+      tempMax: 21,
+      description: "Кратковременные дожди",
+    },
   ];
 });
 </script>
 
 <template>
   <Card>
-    <h3 class="title">Weather forecast (mock)</h3>
+    <h3 class="title">Weather forecast</h3>
     <ul class="list">
       <li v-for="day in days" :key="day.day" class="row">
         <div class="day">

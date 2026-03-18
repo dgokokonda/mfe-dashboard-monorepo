@@ -81,9 +81,9 @@ const handleSelect = (id: string) => {
   emit("product-select", id);
 };
 
-const addProduct = () => {
+const unshiftProduct = () => {
   const productId = String(products.value.length + 1);
-  products.value.push({
+  products.value.unshift({
     id: productId,
     name: `Product ${productId}`,
     price: 99.99,
@@ -97,9 +97,9 @@ const addProduct = () => {
   });
   increment();
 };
-const popProduct = () => {
+const shiftProduct = () => {
   if (products.value.length === 0) return;
-  products.value.pop();
+  products.value.shift();
   // Отправляем событие в хост
   dispatchAppEvent("notification:show", {
     message: "Product removed",
@@ -111,16 +111,19 @@ const popProduct = () => {
 
 <template>
   <div class="product-list">
+    <h3 style="margin-bottom: 8px">Products</h3>
+    <div class="btns">
+      <Button @click="unshiftProduct">Добавить продукт</Button>
+      <Button @click="shiftProduct">Удалить продукт</Button>
+    </div>
     <div class="grid">
-      <Card v-for="product in products.slice(0, limit)" :key="product.id">
+      <Card v-for="product in products" :key="product.id">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
         <p class="price">{{ formatPrice(product.price) }}</p>
         <Button @click="handleSelect(product.id)"> View Details </Button>
       </Card>
     </div>
-    <Button @click="addProduct">Добавить продукт</Button>
-    <Button @click="popProduct">Удалить продукт</Button>
   </div>
 </template>
 
@@ -136,5 +139,10 @@ const popProduct = () => {
 .price {
   font-weight: bold;
   color: #42b883;
+}
+
+.btns {
+  display: flex;
+  gap: 10px;
 }
 </style>

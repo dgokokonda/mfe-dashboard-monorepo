@@ -29,16 +29,38 @@ interface Point {
 }
 
 const points = ref<Point[]>([]);
+const Utils = {
+  months({ count = 7 }) {
+    const monthNames = [
+      "Январь",
+      "Февраль",
+      "Март",
+      "Апрель",
+      "Май",
+      "Июнь",
+      "Июль",
+      "Август",
+      "Сентябрь",
+      "Октябрь",
+      "Ноябрь",
+      "Декабрь",
+    ];
+
+    return monthNames.slice(0, count);
+  },
+};
+const labels = Utils.months({ count: 12 });
 const chartData = ref({
-  labels: [] as string[],
+  type: "line",
+  labels,
   datasets: [
     {
-      label: "Sales",
-      data: [] as number[],
+      label: "2025",
+      data: [21, 5, 17, 67, 9, 34, 25, 40, 138, 55, 151, 125] as number[],
       borderColor: "#42b883",
       backgroundColor: "rgba(66, 184, 131, 0.2)",
       tension: 0.3,
-      fill: true,
+      // fill: true,
     },
   ],
 });
@@ -111,7 +133,7 @@ onBeforeUnmount(() => {
 
 <template>
   <Card>
-    <h3 style="margin-bottom: 8px">Sales (mock)</h3>
+    <h3 style="margin-bottom: 8px">Sales graph</h3>
     <div style="height: 260px">
       <Line :data="chartData" :options="chartOptions" />
     </div>

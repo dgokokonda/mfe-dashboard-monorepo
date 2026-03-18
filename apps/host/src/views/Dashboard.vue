@@ -129,6 +129,7 @@ onMounted(() => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   min-height: 200px;
+  max-height: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -141,7 +142,8 @@ onMounted(() => {
   grid-auto-rows: 1fr;
 }
 
-.dashboard-wrapper h2 {
+.dashboard-wrapper h2,
+.dashboard-wrapper > p {
   text-align: center;
 }
 </style>

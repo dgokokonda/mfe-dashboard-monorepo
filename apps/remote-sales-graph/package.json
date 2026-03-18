@@ -14,11 +14,9 @@
     "@mfe-dashboard/shared-ui": "workspace:*",
     "@mfe-dashboard/shared-utils": "workspace:*",
     "chart.js": "^4.5.1",
-    "echarts": "^5.5.0",
     "pinia": "^2.1.0",
     "vue": "^3.4.0",
     "vue-chartjs": "5",
-    "vue-echarts": "^6.7.3",
     "vue-router": "^4.2.0"
   }
 }

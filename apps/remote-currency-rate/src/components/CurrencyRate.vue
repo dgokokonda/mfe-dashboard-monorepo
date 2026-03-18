@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
 
 <template>
   <Card>
-    <h3 class="title">Currency rates (mock)</h3>
+    <h3 class="title">Currency rates</h3>
     <p class="subtitle">Updates every 4 seconds</p>
     <table class="table">
       <thead>
@@ -61,7 +61,9 @@ onBeforeUnmount(() => {
           <td>{{ rate.code }}</td>
           <td>{{ rate.name }}</td>
           <td>{{ rate.value }}</td>
-          <td :class="['change', { up: rate.change > 0, down: rate.change < 0 }]">
+          <td
+            :class="['change', { up: rate.change > 0, down: rate.change < 0 }]"
+          >
             <span v-if="rate.change > 0">▲</span>
             <span v-else-if="rate.change < 0">▼</span>
             <span v-else>•</span>
