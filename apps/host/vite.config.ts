@@ -7,6 +7,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const isProd = mode === "production";
   const baseName = process.env.VITE_BASE_NAME;
+  const base = isProd && baseName ? `/${baseName}/` : "/";
 
   return {
     plugins: [
@@ -47,7 +48,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    base: isProd && baseName ? `/${baseName}/` : "/",
+    base,
     build: {
       target: "esnext",
       minify: true,
