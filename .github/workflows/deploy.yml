@@ -55,6 +55,8 @@ jobs:
 
       - name: Build host
         run: pnpm --filter @mfe-dashboard/host build
+        env:
+          VITE_BASE_NAME: mfe-dashboard-monorepo
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v4
