@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     vue(),
     federation({
-      name: "remote_weather",
+      name: "remote_currency_rate",
       filename: "remoteEntry.js",
       exposes: {
         "./App": "./src/App.vue",
