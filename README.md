@@ -2,6 +2,8 @@
 
 Реализация микрофронтов с Module Federation (Vite) в монорепозитории на примере дашборда виджетов (список товаров, курс валют, прогноз погоды, график продаж).
 
+Демо проекта: [https://dgokokonda.github.io/mfe-dashboard-monorepo/](https://dgokokonda.github.io/mfe-dashboard-monorepo/)
+
 **Полезные инструменты для монорепозитория:**
 
 - Turborepo — умное кэширование и параллельный запуск
