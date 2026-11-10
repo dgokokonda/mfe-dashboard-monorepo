@@ -15,23 +15,19 @@ export default defineConfig(({ mode }) => {
           remote_products:
             mode === "development"
               ? "http://localhost:5001/assets/remoteEntry.js"
-              : env.PRODUCTS_REMOTE_URL ||
-                "http://localhost:5001/assets/remoteEntry.js",
+              : env.PRODUCTS_REMOTE_URL || "/remote-products/assets/remoteEntry.js",
           remote_sales_graph:
             mode === "development"
               ? "http://localhost:5002/assets/remoteEntry.js"
-              : env.GRAPH_REMOTE_URL ||
-                "http://localhost:5002/assets/remoteEntry.js",
+              : env.GRAPH_REMOTE_URL || "/remote-sales-graph/assets/remoteEntry.js",
           remote_weather:
             mode === "development"
               ? "http://localhost:5003/assets/remoteEntry.js"
-              : env.WEATHER_REMOTE_URL ||
-                "http://localhost:5003/assets/remoteEntry.js",
+              : env.WEATHER_REMOTE_URL || "/remote-weather/assets/remoteEntry.js",
           remote_currency_rate:
             mode === "development"
               ? "http://localhost:5004/assets/remoteEntry.js"
-              : env.CURRENCY_RATE_REMOTE_URL ||
-                "http://localhost:5004/assets/remoteEntry.js",
+              : env.CURRENCY_RATE_REMOTE_URL || "/remote-currency-rate/assets/remoteEntry.js",
         },
         shared: {
           vue: "^3.4.0",
@@ -53,6 +49,7 @@ export default defineConfig(({ mode }) => {
       target: "esnext",
       minify: true,
       cssCodeSplit: false,
+      outDir: "../../dist",
       rollupOptions: {
         output: {
           format: "esm",
