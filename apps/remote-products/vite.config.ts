@@ -3,10 +3,9 @@ import vue from "@vitejs/plugin-vue";
 import federation from "@originjs/vite-plugin-federation";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const isProd = mode === "production"
-  const baseName = process.env.VITE_REMOTE_BASE_NAME
+  const isProd = mode === "production";
+  const baseName = process.env.VITE_REMOTE_BASE_NAME;
   return {
     plugins: [
       vue(),
@@ -18,7 +17,6 @@ export default defineConfig(({ mode }) => {
           "./ProductList": "./src/components/ProductList.vue",
           "./ProductDetail": "./src/components/ProductDetail.vue",
           "./store": "./src/stores/productsStore.ts",
-          // "./composables/useProducts": "./src/composables/useProducts.ts",
         },
         shared: {
           vue: "^3.4.0",
@@ -36,7 +34,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    base: isProd && baseName ? `/${baseName}/` : "/",
+    base: isProd && baseName ? `/mfe-dashboard-monorepo/${baseName}/` : "/",
     build: {
       target: "esnext",
       minify: true,
@@ -61,5 +59,5 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       cors: true,
     },
-  }
-})
+  };
+});
