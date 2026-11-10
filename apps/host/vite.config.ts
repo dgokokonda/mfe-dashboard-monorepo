@@ -4,10 +4,7 @@ import federation from "@originjs/vite-plugin-federation";
 import path from "path";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
   const isProd = mode === "production";
-  const baseName = process.env.VITE_BASE_NAME;
-  const base = isProd && baseName ? `/${baseName}/` : "/";
 
   return {
     plugins: [
@@ -18,19 +15,19 @@ export default defineConfig(({ mode }) => {
           remote_products:
             mode === "development"
               ? "http://localhost:5001/assets/remoteEntry.js"
-              : env.PRODUCTS_REMOTE_URL || "/remote-products/assets/remoteEntry.js",
+              : "/mfe-dashboard-monorepo/remote-products/assets/remoteEntry.js",
           remote_sales_graph:
             mode === "development"
               ? "http://localhost:5002/assets/remoteEntry.js"
-              : env.GRAPH_REMOTE_URL || "/remote-sales-graph/assets/remoteEntry.js",
+              : "/mfe-dashboard-monorepo/remote-sales-graph/assets/remoteEntry.js",
           remote_weather:
             mode === "development"
               ? "http://localhost:5003/assets/remoteEntry.js"
-              : env.WEATHER_REMOTE_URL || "/remote-weather/assets/remoteEntry.js",
+              : "/mfe-dashboard-monorepo/remote-weather/assets/remoteEntry.js",
           remote_currency_rate:
             mode === "development"
               ? "http://localhost:5004/assets/remoteEntry.js"
-              : env.CURRENCY_RATE_REMOTE_URL || "/remote-currency-rate/assets/remoteEntry.js",
+              : "/mfe-dashboard-monorepo/remote-currency-rate/assets/remoteEntry.js",
         },
         shared: {
           vue: "^3.4.0",
@@ -48,7 +45,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    base,
+    base: isProd ? "/mfe-dashboard-monorepo/" : "/",
     build: {
       target: "esnext",
       minify: true,
